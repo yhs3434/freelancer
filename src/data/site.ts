@@ -32,7 +32,7 @@ export const site = {
 
   about: {
     paragraphs: [
-      'Most of my client work has been for Korean payment companies. Shop owners use the apps I built to take a card on their phone or on a card terminal, and to see what the card companies will pay them and when.',
+      "Most of my client work has been for Korean payment companies. Shop owners use the apps I built to take a card on their phone and to see what the card companies will pay them and when. I also built Finlogistec's payment app for the Verifone X990 card terminal.",
       'At Beaver Works I was the only developer on the Isaac Toast ordering app for iOS and Android. It has over 100,000 installs on Google Play.',
       "MomentBook is the product I own. I started it in January 2025 and I'm still the only developer on it. When a server goes down or a store review fails, I'm the one who fixes it, and that is the habit I bring to client work.",
     ],

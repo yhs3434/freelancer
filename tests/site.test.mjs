@@ -240,12 +240,19 @@ test('case pages have no empty Screens section', () => {
   }
 });
 
-test('card terminal cover is marked as a placeholder', () => {
-  for (const path of ['work/card-terminal/index.html', 'index.html']) {
-    const page = pageAt(path);
-    assert.ok(page, `${path} missing`);
-    assert.ok(page.root.querySelector('[data-todo="cover"]'), `${path}: card terminal cover has no data-todo="cover"`);
+// Stand-in images (file names with "placeholder") must carry data-todo, on the image or a parent,
+// so STRICT=1 npm test keeps blocking the deploy. Swapping in a real photo removes the requirement.
+test('placeholder images are marked data-todo', () => {
+  const problems = [];
+  for (const page of pages) {
+    for (const img of page.root.querySelectorAll('img')) {
+      if (!/placeholder/i.test(img.getAttribute('src') ?? '')) continue;
+      let el = img;
+      while (el && !el.getAttribute?.('data-todo')) el = el.parentNode;
+      if (!el) problems.push(`${page.path}: ${img.getAttribute('src')}`);
+    }
   }
+  assert.deepEqual(problems, []);
 });
 
 test('copy rules', () => {

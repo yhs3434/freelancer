@@ -8,7 +8,7 @@ platforms: [Android (Verifone X990)]
 role: Android app development
 links:
   - label: The Verifone X990 terminal
-    href: https://www.verifone.com/en/asia/verifone-x990
+    href: https://www.verifone.com/en-asia/hardware-product/verifone-x990
 cover: ../../assets/work/card-terminal/placeholder.svg
 coverAlt: Placeholder for a photo of the payment app running on the Verifone X990 terminal.
 coverKind: composed

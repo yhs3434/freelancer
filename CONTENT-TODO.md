@@ -31,7 +31,8 @@
 | 앱 영문 표기 | 결제 케이스 스터디 `brands[].name` | SOLOMON·Ftoo·ATEE는 로고에서 확인. Umji Pay, Umji Pay D1, Pay Hanul은 로마자 추정 |
 | "latest release went out in November 2026" | 결제 케이스 스터디 Outcome | 2026-11-15 Play Store 기준. 시간이 지나면 틀리므로 공개 시점에 다시 확인하거나 문장을 빼기 |
 | 고객사 공개 허락 | 결제·X990·주문 앱 케이스 스터디 | Finlogistec(결제 앱, X990 앱), 비버웍스(이삭토스트 앱)의 앱 이름과 스토어 스크린샷을 포트폴리오에 써도 되는지(NDA). Upwork에서도 남을 위해 한 작업은 허락을 받는 것이 일반적 |
-| X990 앱 역할·내용 | `card-terminal.md` | 역할 "Android app development"가 맞는지, 어떤 결제 방식과 VAN을 연동했는지. 어려웠던 점과 결과(쓰는 매장 수 등)를 주면 섹션을 추가 |
+| X990 앱 역할·내용 | `card-terminal.md`, `site.ts` About | 역할 "Android app development"가 맞는지, 어떤 결제 방식과 VAN을 연동했는지. 어려웠던 점과 결과(쓰는 매장 수 등)를 주면 섹션을 추가 |
+| 케이스의 "Client" 표기 | 결제·X990·이삭토스트 케이스 스터디 `client` | 화면에 "Client"로 나가서 외주 계약처럼 읽힘. Finlogistec·비버웍스 일이 재직이었는지 계약이었는지 알려 주면 표기를 맞춤(예: 재직이면 라벨을 "Company"로) |
 | 이삭토스트 앱 개발 | `isaac-toast.md` "The app", `site.ts` About | 앱 개발자는 본인 혼자(2026-11-15 확인). React Native라는 내용은 비버웍스 채용 공고 기준이니 맞는지, 처음부터 만들었는지 확인 |
 | 이삭토스트 설치 수·평점·업데이트 시점 | `isaac-toast.md` Outcome, `site.ts` About | 2026-11-15 스토어 기준: Google Play 10만+, App Store 4.8(약 1.1천 건), 최근 업데이트 2026-11. 공개 전에 다시 확인 |
 | 결제 실패 사례 문구 | `services.ts` "Card payments and payment links" | 결제 취소 기능, 승인 중 시간 초과, 정산 불일치를 실제로 다뤘는지 |
