@@ -20,7 +20,7 @@
 | "six Korean card-payment brands" 앱을 내가 만들었다 | `site.ts` `intro`, 결제 케이스 스터디 | 맡은 역할(전체 개발? 앱만? 단말기 연동 포함?), 기간 |
 | 6개 앱이 하나의 코드베이스에서 나온 화이트라벨인지 | `src/content/work/payments.md` | 패키지가 `com.corp.sonic.*`와 `com.finnacle.finon.*` 두 계열이라 구조를 단정하지 않음 |
 | 핀트리니티와의 관계 | 결제 케이스 스터디 | Play Store에서 핀트리니티 명의 앱을 찾지 못함. 결제 단말기 쪽 작업이면 별도 케이스로 추가 가능 |
-| 앱 영문 표기 | 결제 케이스 스터디 `brands[].name` | Umji Pay, Umji Pay D1, Solomon, F2, AT, Pay Hanul (로마자 추정) |
+| 앱 영문 표기 | 결제 케이스 스터디 `brands[].name` | SOLOMON·Ftoo·ATEE는 로고에서 확인. Umji Pay, Umji Pay D1, Pay Hanul은 로마자 추정 |
 | 고객사 공개 허락 | 결제 케이스 스터디 | Finlogistec 앱 이름·스크린샷을 포트폴리오에 써도 되는지(NDA) |
 | 결제 실패 사례 문구 | `services.ts` "Payments that add up" | 중복 승인, 승인 중 끊김, 정산 불일치를 실제로 다뤘는지 |
 | 응답 시간 "one working day" | `faq.ts` 시간대 답변 | 지킬 수 있는 약속인지 |
