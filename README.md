@@ -18,7 +18,7 @@ STRICT=1 npm test    # also fails while any placeholder is left (see CONTENT-TOD
 
 | What | Where |
 |---|---|
-| Name, headline, intro, availability, platform URLs, proof numbers, About, closing CTA | `src/data/site.ts` |
+| Name, headline, intro, availability, platform URLs, About, closing CTA | `src/data/site.ts` |
 | Services | `src/data/services.ts` |
 | How I work | `src/data/process.ts` |
 | FAQ | `src/data/faq.ts` |

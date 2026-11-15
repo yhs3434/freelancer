@@ -12,7 +12,7 @@ This site has to read as made by one person. Visitors judge a page in about 50 m
 - **No middle-dot meta strings** ("Client · 2025 · Android"). Use a sentence, or the case-study meta list.
 - **No decoration** that carries no information: availability dots, live clocks, gradients, glows, icon grids or stock illustrations.
 - **Vary the rhythm.** Work gets the most room. Don't wrap every section in the same frame or add rules between them.
-- **Real proof first.** Screenshots of shipped apps belong above the fold, never a placeholder.
+- **Real proof first.** Screenshots of shipped apps belong on the first desktop screen and directly after the hero text on phones, never a placeholder.
 
 Avoid these combinations, which AI tools converge on:
 - A cream or beige background (#F4F1EA-ish) with a terracotta or rusty-orange accent.

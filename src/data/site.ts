@@ -25,7 +25,7 @@ export const site = {
 
   headline: 'I build mobile apps that take payments, and the servers behind them.',
   intro:
-    "I'm Hansol, a freelance engineer in Seoul. I built the merchant app that six Korean card-payment brands ship on Google Play. I also build and run MomentBook, a travel app for iOS, Android and the web, by myself: about 5,300 commits since January 2025.",
+    "I'm Hansol, a freelance product engineer in Seoul. I built the merchant app that six Korean card-payment brands ship on Google Play. I also build and run MomentBook, a travel app for iOS, Android and the web, by myself: about 5,300 commits since January 2025.",
 
   /** One-line entries for smaller projects. The section stays hidden while this is empty. */
   moreWork: [] as MoreWorkItem[],
@@ -33,7 +33,7 @@ export const site = {
   about: {
     paragraphs: [
       'Most of my client work has been for Korean payment companies. Shop owners use the apps I built to take a card on their phone and to see what the card companies will pay them, and when.',
-      "MomentBook is the product I own. I started it in January 2025 and have written every commit since. When a server goes down or a store review fails, I'm the one who fixes it, and that is the habit I bring to client work.",
+      "MomentBook is the product I own. I started it in January 2025 and I'm still the only developer on it. When a server goes down or a store review fails, I'm the one who fixes it, and that is the habit I bring to client work.",
     ],
     timeline: [
       { when: '20XX', what: 'Merchant payment apps for Finlogistec', todo: true },

@@ -98,7 +98,9 @@ const HANGUL = /\p{Script=Hangul}+/u;
 // Writing tics that read as generated (see DESIGN.md): em dashes and "X, not Y" contrasts.
 const WRITING_PATTERNS = {
   'em dash': /\u2014/,
-  'negative parallelism': /, not (?:just |only )?\w|\bnot just\b|\brather than\b|\binstead of\b/i,
+  // ", not yet" is a plain time phrase, so it is allowed.
+  'negative parallelism':
+    /, not (?!yet\b)(?:just |only )?\w|\bnot (?:just|only)\b|n['’]t (?:just|only)\b|\bnot\b[^.,;:!?]{1,30}\bbut\b|\brather than\b|\binstead of\b/i,
 };
 // Emoji and pictographs, except the typographic ©, ® and ™.
 const EMOJI = /(?![©®™])\p{Extended_Pictographic}/u;

@@ -26,13 +26,14 @@
 | 앱 영문 표기 | 결제 케이스 스터디 `brands[].name` | SOLOMON·Ftoo·ATEE는 로고에서 확인. Umji Pay, Umji Pay D1, Pay Hanul은 로마자 추정 |
 | "latest release went out in November 2026" | 결제 케이스 스터디 Outcome | 2026-11-15 Play Store 기준. 시간이 지나면 틀리므로 공개 시점에 다시 확인하거나 문장을 빼기 |
 | 고객사 공개 허락 | 결제 케이스 스터디 | Finlogistec 앱 이름·스크린샷을 포트폴리오에 써도 되는지(NDA) |
-| 결제 실패 사례 문구 | `services.ts` "Card payments and payment links" | 승인 중 시간 초과, 정산 불일치를 실제로 다뤘는지 |
+| 결제 실패 사례 문구 | `services.ts` "Card payments and payment links" | 결제 취소 기능, 승인 중 시간 초과, 정산 불일치를 실제로 다뤘는지 |
 | 응답 시간 "one working day" | `faq.ts` 시간대 답변 | 지킬 수 있는 약속인지 |
 | 출시 후 버그 수정 기간 | `process.ts` 마지막 문단 | 기간(예: 30일)을 적을지 |
 | "about 5,300 commits since January 2025" | `site.ts` `intro`, MomentBook 케이스 스터디 | 2026-11-15 `git rev-list --count HEAD` 기준 5,304개. 숫자는 시간이 지나면 늘어나므로 공개 전에 다시 세기 |
 | 디자인 가능 범위 | `faq.ts` "Do you also design?" | 실제로 화면 디자인까지 하는지 |
 | 영어 업무 가능 여부 | (아직 사이트에 없음) | 쓰려면 About에 추가 |
-| MomentBook 역할 | MomentBook 케이스 스터디 `role` | 커밋은 전부 본인. 화면 디자인도 직접 했는지 |
+| MomentBook 역할 | MomentBook 케이스 스터디 `role`, `site.ts` About | 개발자는 본인 혼자. 다만 5,304개 커밋 중 1,030개에 `Co-Authored-By: Claude`가 붙어 있어(2026-11-15 기준) "모든 커밋을 직접 썼다"는 표현은 쓰지 않음. 화면 디자인도 직접 했는지 |
+| AI 도구 사용 공개 | (아직 사이트에 없음) | 밝힐지 결정. NN/g(2026)에 따르면 남이 먼저 알아낸 경우가 스스로 밝힌 경우보다 신뢰를 더 잃습니다. 쓴다면 About이나 FAQ에 한 문장(예: "I use AI coding tools, and I review and test everything they write.") |
 | "More work" 목록 | `site.ts` → `moreWork` | 비어 있으면 섹션이 숨겨짐. 한 줄 소개할 작업이 있으면 추가 |
 | 후기 | (섹션 없음) | 실제 Upwork/Fiverr 후기가 생기면 추가 |
 
