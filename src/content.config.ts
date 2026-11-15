@@ -18,6 +18,8 @@ const work = defineCollection({
       coverAlt: z.string(),
       /** 'phone': a raw app screen, drawn inside a phone frame. 'composed': a store image that already has its own framing. */
       coverKind: z.enum(['phone', 'composed']),
+      /** True while `cover` is a stand-in. Rendered as data-todo="cover", which STRICT=1 npm test catches. */
+      coverTodo: z.boolean().default(false),
       gallery: z.array(
         z.object({
           src: image(),

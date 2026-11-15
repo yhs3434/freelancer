@@ -15,7 +15,7 @@ export const services: Service[] = [
   },
   {
     title: 'Card payments and payment links',
-    body: "Taking a card on a phone, sending a payment link by text, cancelling a payment, and the sales report a shop owner reads at closing time. I built these for Korean payment companies. Most of the work is in the failure cases, like a payment that times out halfway or a daily total that doesn't match the card company's.",
+    body: "Taking a card on a phone or on an Android card terminal, sending a payment link by text, cancelling a payment, and the sales report a shop owner reads at closing time. I built these for Korean payment companies. Most of the work is in the failure cases, like a payment that times out halfway or a daily total that doesn't match the card company's.",
     evidence: { label: 'See the six payment apps', href: '/work/payments' },
   },
   {

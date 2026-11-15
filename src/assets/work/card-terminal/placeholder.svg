@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <!-- Stands in for a photo of the app on the X990 until the owner supplies one (data-todo="cover"). -->
+  <rect width="1200" height="800" fill="#ececec" />
+  <rect x="470" y="110" width="260" height="580" rx="36" fill="#d4d4d4" />
+  <rect x="500" y="150" width="200" height="300" rx="10" fill="#ececec" />
+</svg>

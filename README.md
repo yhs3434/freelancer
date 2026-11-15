@@ -1,6 +1,6 @@
 # Freelance site
 
-The site I link from my Upwork and Fiverr profiles. It shows what I do, two shipped products, and how to hire me on those platforms. It is a static Astro build with no client-side JavaScript and no trackers. `DESIGN.md` has the visual and writing rules that keep it from reading as AI-made.
+The site I link from my Upwork and Fiverr profiles. It shows what I do, the apps I've shipped and how to hire me on those platforms. It is a static Astro build with no client-side JavaScript and no trackers. `DESIGN.md` has the visual and writing rules that keep it from reading as AI-made.
 
 ## Run it
 

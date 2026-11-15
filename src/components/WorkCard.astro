@@ -7,12 +7,12 @@ interface Props {
 }
 
 const { entry } = Astro.props;
-const { title, summary, cover, coverAlt } = entry.data;
+const { title, summary, cover, coverAlt, coverTodo } = entry.data;
 const href = `/work/${entry.id}`;
 ---
 
 <article class="card">
-  <div class="card__media">
+  <div class="card__media" data-todo={coverTodo ? 'cover' : undefined}>
     <Image src={cover} alt={coverAlt} widths={[640, 960, 1280]} sizes="(min-width: 60rem) 52vw, 100vw" />
   </div>
   <div class="card__text">

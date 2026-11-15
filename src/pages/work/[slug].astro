@@ -43,6 +43,7 @@ const { data } = entry;
       <div class="case__main">
         <Image
           class="case__cover"
+          data-todo={data.coverTodo ? 'cover' : undefined}
           src={data.cover}
           alt={data.coverAlt}
           widths={[720, 1080, 1600]}
@@ -55,12 +56,16 @@ const { data } = entry;
       </div>
     </div>
 
-    <section class="case__gallery" aria-labelledby="screens-title">
-      <div class="wrap">
-        <h2 class="case__h2" id="screens-title">Screens</h2>
-      </div>
-      <Gallery items={data.gallery} label={`Screens from ${data.title}`} />
-    </section>
+    {
+      data.gallery.length > 0 && (
+        <section class="case__gallery" aria-labelledby="screens-title">
+          <div class="wrap">
+            <h2 class="case__h2" id="screens-title">Screens</h2>
+          </div>
+          <Gallery items={data.gallery} label={`Screens from ${data.title}`} />
+        </section>
+      )
+    }
 
     {
       data.brands && (

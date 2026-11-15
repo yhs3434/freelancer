@@ -1,7 +1,7 @@
 ---
 title: 'MomentBook: a travel app I build and run myself'
 summary: Pick photos from a trip and MomentBook groups them by time and place into a journey you can edit and share. I build and run the whole thing alone, from the iOS and Android app to the servers.
-order: 2
+order: 4
 client: My own product
 years: '2025–now'
 platforms: [iOS, Android, Web]

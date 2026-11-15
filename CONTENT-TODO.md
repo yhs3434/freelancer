@@ -13,6 +13,11 @@
 | 도메인 | `astro.config.mjs` `SITE_URL`, `public/robots.txt` | `example.com` | 잡음 |
 | 프로필 사진 | About 섹션. `src/assets/portrait-placeholder.svg`를 실제 사진으로 교체 | 회색 자리 | 잡음 |
 | 결제 앱 작업 연도 | `site.ts` → `about.timeline[0].when`, 결제 케이스 스터디 `years` | `20XX` | 잡음 |
+| X990 단말기 사진 | `src/content/work/card-terminal.md` `cover`. 본인이 찍은 앱 실행 사진이나 화면으로 교체하고 `coverTodo: true` 삭제(Verifone 제품 사진은 저작권 때문에 쓰지 않음) | 회색 자리 | 잡음 |
+| X990 앱 작업 연도 | `card-terminal.md` `years` | `20XX` | 잡음 |
+| X990 앱 "What I built" | `card-terminal.md` | 초안 목록(칩·마그네틱·비접촉 결제, 결제 취소, 영수증 출력, 당일 매출). 실제로 만든 기능으로 고치기 | 잡음 |
+| 주문 앱 작업 연도 | `ordering-apps.md` `years`, `site.ts` → `about.timeline[1].when` | `20XX` | 잡음 |
+| 주문 앱 "My part" | `ordering-apps.md` | App Store 릴리스 노트에서 뽑은 초안(주문·결제, 스탬프·쿠폰·기프트카드, OTA 업데이트). 본인이 맡은 것만 남기기 | 잡음 |
 
 이미 채운 항목: 이름은 `Hansol Yoon`(MomentBook 커밋 작성자 이름, 2026-11-15 확정). MomentBook 기간은 `2025–now`(첫 커밋 2025-01-21). 이름을 바꾸면 `scripts/og/og.html`도 고치고 `bash scripts/og/render.sh`를 실행하세요. 둘이 다르면 테스트가 실패합니다.
 
@@ -25,7 +30,11 @@
 | 핀트리니티와의 관계 | 결제 케이스 스터디 | Play Store에서 핀트리니티 명의 앱을 찾지 못함. 결제 단말기 쪽 작업이면 별도 케이스로 추가 가능 |
 | 앱 영문 표기 | 결제 케이스 스터디 `brands[].name` | SOLOMON·Ftoo·ATEE는 로고에서 확인. Umji Pay, Umji Pay D1, Pay Hanul은 로마자 추정 |
 | "latest release went out in November 2026" | 결제 케이스 스터디 Outcome | 2026-11-15 Play Store 기준. 시간이 지나면 틀리므로 공개 시점에 다시 확인하거나 문장을 빼기 |
-| 고객사 공개 허락 | 결제 케이스 스터디 | Finlogistec 앱 이름·스크린샷을 포트폴리오에 써도 되는지(NDA) |
+| 고객사 공개 허락 | 결제·X990·주문 앱 케이스 스터디 | Finlogistec(결제 앱, X990 앱), 비버웍스·더본코리아(이삭토스트·빽다방 앱)의 앱 이름과 스토어 스크린샷을 포트폴리오에 써도 되는지(NDA). Upwork에서도 남을 위해 한 작업은 허락을 받는 것이 일반적 |
+| X990 앱 역할·내용 | `card-terminal.md` | 역할 "Android app development"가 맞는지, 어떤 결제 방식과 VAN을 연동했는지. 어려웠던 점과 결과(쓰는 매장 수 등)를 주면 섹션을 추가 |
+| 비버웍스 팀과 기술 | `ordering-apps.md` "The apps", `site.ts` About | 앱이 React Native라는 내용은 비버웍스 채용 공고 기준. 재직 기간과 팀 규모 |
+| 빽다방이 이삭토스트 코드로 나왔다는 내용 | `ordering-apps.md`, `site.ts` About | 본인 진술 기준(스토어에서는 빽다방 3.0.0이 2026-06-10에 같은 등록 정보로 나온 것까지 확인). 회사 내부 정보라 공개해도 되는지 |
+| 설치 수·평점·업데이트 시점 | `ordering-apps.md` Outcome | 2026-11-15 스토어 기준: 이삭토스트 Google Play 10만+, App Store 4.8(약 1.1천 건), 빽다방 Google Play 100만+(2018년부터 누적), 최근 업데이트 2026-11(이삭토스트)·2026-10(빽다방). 공개 전에 다시 확인 |
 | 결제 실패 사례 문구 | `services.ts` "Card payments and payment links" | 결제 취소 기능, 승인 중 시간 초과, 정산 불일치를 실제로 다뤘는지 |
 | 응답 시간 "one working day" | `faq.ts` 시간대 답변 | 지킬 수 있는 약속인지 |
 | 출시 후 버그 수정 기간 | `process.ts` 마지막 문단 | 기간(예: 30일)을 적을지 |

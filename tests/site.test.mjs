@@ -20,7 +20,14 @@ import {
 const pages = await loadPages();
 const pageAt = (path) => pages.find((page) => page.path === path);
 
-const REQUIRED_PAGES = ['index.html', 'work/payments/index.html', 'work/momentbook/index.html', '404.html'];
+const REQUIRED_PAGES = [
+  'index.html',
+  'work/payments/index.html',
+  'work/card-terminal/index.html',
+  'work/ordering-apps/index.html',
+  'work/momentbook/index.html',
+  '404.html',
+];
 
 const PAYMENT_APP_IDS = [
   'com.corp.sonic.newkingpay',
@@ -30,6 +37,10 @@ const PAYMENT_APP_IDS = [
   'com.finnacle.finon.sixs',
   'com.finnacle.finon.wiz',
 ];
+
+// Isaac Toast and Paik's Coffee: Google Play package ids and App Store ids.
+const ORDERING_PLAY_IDS = ['com.beaverworksinc.smartorder.issac', 'air.kr.paikdabang.android.membership'];
+const ORDERING_APP_STORE_IDS = ['6739762348', '1423434541'];
 
 // Upwork forbids sharing contact details (incl. messenger IDs and social handles) before a contract.
 const BLOCKED_HOSTS = [
@@ -198,6 +209,44 @@ test('payments page links all six listings', () => {
     .map(({ href }) => new URL(href).searchParams.get('id'));
   for (const id of PAYMENT_APP_IDS) {
     assert.ok(ids.includes(id), `no Play Store link for ${id}`);
+  }
+});
+
+test('ordering apps page links both apps on both stores', () => {
+  const page = pageAt('work/ordering-apps/index.html');
+  assert.ok(page, 'ordering apps page missing');
+  const hrefs = anchors(page).map(({ href }) => href);
+  const playIds = hrefs
+    .filter((href) => hrefHost(href) === 'play.google.com')
+    .map((href) => new URL(href).searchParams.get('id'));
+  for (const id of ORDERING_PLAY_IDS) {
+    assert.ok(playIds.includes(id), `no Play Store link for ${id}`);
+  }
+  for (const id of ORDERING_APP_STORE_IDS) {
+    assert.ok(
+      hrefs.some((href) => hrefHost(href) === 'apps.apple.com' && new URL(href).pathname.endsWith(`/id${id}`)),
+      `no App Store link for id${id}`,
+    );
+  }
+});
+
+test('case pages have no empty Screens section', () => {
+  const casePages = pages.filter((page) => page.path.startsWith('work/'));
+  assert.ok(casePages.length > 0, 'no case pages built');
+  for (const page of casePages) {
+    const heading = page.root.querySelector('#screens-title');
+    if (!heading) continue;
+    const section = page.root.querySelector('[aria-labelledby="screens-title"]');
+    const items = section?.querySelectorAll('.gallery__track > li') ?? [];
+    assert.ok(items.length > 0, `${page.path}: "Screens" heading with no screens`);
+  }
+});
+
+test('card terminal cover is marked as a placeholder', () => {
+  for (const path of ['work/card-terminal/index.html', 'index.html']) {
+    const page = pageAt(path);
+    assert.ok(page, `${path} missing`);
+    assert.ok(page.root.querySelector('[data-todo="cover"]'), `${path}: card terminal cover has no data-todo="cover"`);
   }
 });
 
