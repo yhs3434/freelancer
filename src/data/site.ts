@@ -25,7 +25,6 @@ export const site = {
   timeZone: 'Asia/Seoul',
   utcLabel: 'UTC+9',
   availability: 'Taking on new projects',
-  url: 'https://example.com',
   platforms: {
     upwork: 'https://www.upwork.com/freelancers/~TODO',
     fiverr: 'https://www.fiverr.com/TODO',

@@ -22,7 +22,7 @@ export const faq: FaqItem[] = [
   },
   {
     q: 'Will you sign an NDA?',
-    a: 'Yes. Upwork has a built-in NDA you can send with the invitation, or send your own before we go into details.',
+    a: 'Yes. Send it with your invitation and I will sign it before we go into details.',
   },
   {
     q: 'Why only through Upwork or Fiverr?',

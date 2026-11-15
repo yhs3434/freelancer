@@ -34,14 +34,44 @@ export async function loadPages() {
   );
 }
 
-/** Text a visitor can read: body text without scripts and styles, plus title and meta description. */
-export function visibleText(root) {
+/**
+ * Text a visitor or a screen reader gets: title, meta description, body text, and the alt,
+ * aria-label and title attributes. Scripts and styles are dropped. Block elements are kept apart
+ * (compressHTML removes the whitespace between them, so plain `.text` glues "Robust" and "One"
+ * into "RobustOne"). With { englishOnly: true }, elements whose lang is not English are dropped.
+ */
+export function visibleText(root, { englishOnly = false } = {}) {
   const copy = parse(root.toString());
   copy.querySelectorAll('script, style, noscript, template').forEach((node) => node.remove());
-  const body = copy.querySelector('body')?.text ?? '';
+  const body = copy.querySelector('body');
+  if (englishOnly && body) {
+    body
+      .querySelectorAll('[lang]')
+      .filter((el) => !/^en\b/i.test(el.getAttribute('lang') ?? ''))
+      .forEach((el) => el.remove());
+  }
+  const labels = (body?.querySelectorAll('[alt], [aria-label], [title]') ?? []).flatMap((el) =>
+    ['alt', 'aria-label', 'title'].map((name) => el.getAttribute(name)).filter(Boolean),
+  );
   const title = copy.querySelector('title')?.text ?? '';
   const description = copy.querySelector('meta[name="description"]')?.getAttribute('content') ?? '';
-  return `${title}\n${description}\n${body}`.replace(/\s+/g, ' ');
+  return [title, description, body?.structuredText ?? '', ...labels].join('\n').replace(/\s+/g, ' ');
+}
+
+/** Text of an element as rendered without JS: elements with the hidden attribute are left out. */
+export function textWithoutHidden(el) {
+  const copy = parse(el.toString());
+  copy.querySelectorAll('[hidden]').forEach((node) => node.remove());
+  return copy.text.replace(/\s+/g, ' ');
+}
+
+/** Scheme of an absolute URL ("https:", "mailto:"), or null for relative links. */
+export function hrefScheme(href) {
+  try {
+    return new URL(href).protocol.toLowerCase();
+  } catch {
+    return null;
+  }
 }
 
 /** Hostname of an href, or null for relative links and non-URL schemes. */

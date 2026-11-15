@@ -3,13 +3,17 @@ import assert from 'node:assert/strict';
 import { existsSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { parse } from 'node-html-parser';
+import { site } from '../src/data/site.ts';
 import {
   DIST,
   hostMatches,
   hrefHost,
+  hrefScheme,
   listDistFiles,
   loadPages,
   resolveInternal,
+  textWithoutHidden,
   visibleText,
 } from './helpers.mjs';
 
@@ -47,30 +51,50 @@ const BLOCKED_HOSTS = [
   'github.com',
   'threads.net',
   'line.me',
+  'm.me',
+  'messenger.com',
+  'signal.me',
+  'bsky.app',
+  'youtube.com',
+  'youtu.be',
+  'tiktok.com',
+  'gitlab.com',
+  'wechat.com',
+  'viber.com',
+  'snapchat.com',
 ];
 
 const EMAIL = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i;
-const PHONE_DOMESTIC = /(?<!\d)0\d{1,2}[\s.-]?\d{3,4}[\s.-]?\d{4}(?!\d)/;
-const PHONE_INTERNATIONAL = /\+\d{1,3}[\s.-]?\(?\d{1,4}\)?[\s.-]?\d{3,4}[\s.-]?\d{4}/;
+// Any absolute URL in the raw HTML, including JSON-LD, meta tags and <link rel="me">.
+const URL_IN_HTML = /https?:\/\/[^\s"'<>)\\]+/gi;
+// Patterns checked against the visible text.
+const CONTACT_TEXT = {
+  'phone number': /(?<!\d)0\d{1,2}[\s.-]?\d{3,4}[\s.-]?\d{4}(?!\d)/,
+  'international phone number': /\+\d{1,3}[\s.-]?\(?\d{1,4}\)?[\s.-]?\d{3,4}[\s.-]?\d{4}/,
+  'US-format phone number': /(?<!\d)\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}(?!\d)/,
+  'messenger ID': /\b(?:kakao(?:talk)?|telegram|whatsapp|wechat|line|signal|skype|discord|viber)\b\s*(?:id|handle)?\s*[:@]/i,
+  'social handle': /(?:^|\s)@[A-Za-z0-9_.]{3,}/,
+};
 
+// Stock marketing words, matched with their inflections ("leveraging", "empowers").
 const BANNED_WORDS = [
-  'seamless',
-  'seamlessly',
-  'elevate',
+  'seamless\\w*',
+  'elevat\\w*',
   'cutting-edge',
-  'unlock',
-  'empower',
-  'leverage',
+  'unlock\\w*',
+  'empower\\w*',
+  'leverag\\w*',
   'world-class',
-  'robust',
-  'innovative',
-  'supercharge',
-  'game-changer',
-  'synergy',
-  'tailored solutions',
+  'robust\\w*',
+  'innovat\\w*',
+  'supercharg\\w*',
+  'game-chang\\w*',
+  'synerg\\w*',
+  'tailored solutions?',
   'next-level',
-  'delve',
+  'delv\\w*',
 ];
+const HANGUL = /\p{Script=Hangul}+/u;
 // Emoji and pictographs, except the typographic ©, ® and ™.
 const EMOJI = /(?![©®™])\p{Extended_Pictographic}/u;
 
@@ -85,20 +109,29 @@ test('required pages exist', () => {
 
 test('no contact info', () => {
   assert.ok(pages.length > 0, 'no pages built');
+  const problems = [];
   for (const page of pages) {
-    for (const { href } of anchors(page)) {
-      assert.doesNotMatch(href, /^(mailto|tel|sms):/i, `${page.path}: contact link ${href}`);
-      const host = hrefHost(href);
-      if (host) {
-        const blocked = BLOCKED_HOSTS.find((domain) => hostMatches(host, domain));
-        assert.equal(blocked, undefined, `${page.path}: link to ${host}`);
+    // Only web links: mailto:, tel:, sms:, skype:, whatsapp: and the like are all contact channels.
+    for (const el of page.root.querySelectorAll('[href]')) {
+      const href = el.getAttribute('href') ?? '';
+      const scheme = hrefScheme(href);
+      if (scheme && scheme !== 'http:' && scheme !== 'https:') problems.push(`${page.path}: ${scheme} link ${href}`);
+    }
+    for (const url of page.html.match(URL_IN_HTML) ?? []) {
+      const host = hrefHost(url);
+      if (host && BLOCKED_HOSTS.some((domain) => hostMatches(host, domain))) {
+        problems.push(`${page.path}: link to ${host}`);
       }
     }
+    const email = page.html.match(EMAIL);
+    if (email) problems.push(`${page.path}: email address ${email[0]}`);
     const text = visibleText(page.root);
-    assert.doesNotMatch(text, EMAIL, `${page.path}: email address in text`);
-    assert.doesNotMatch(text, PHONE_DOMESTIC, `${page.path}: phone number in text`);
-    assert.doesNotMatch(text, PHONE_INTERNATIONAL, `${page.path}: phone number in text`);
+    for (const [kind, pattern] of Object.entries(CONTACT_TEXT)) {
+      const match = text.match(pattern);
+      if (match) problems.push(`${page.path}: ${kind} "${match[0].trim()}"`);
+    }
   }
+  assert.deepEqual(problems, []);
 });
 
 test('hire CTAs go to platforms only', () => {
@@ -114,6 +147,13 @@ test('hire CTAs go to platforms only', () => {
       );
     }
   }
+});
+
+test('404 page has no canonical URL', () => {
+  const page = pageAt('404.html');
+  assert.ok(page, '404 page missing');
+  assert.ok(!page.root.querySelector('link[rel="canonical"]'), 'canonical on the 404 page');
+  assert.ok(!page.root.querySelector('meta[property="og:url"]'), 'og:url on the 404 page');
 });
 
 test('page basics', () => {
@@ -155,19 +195,34 @@ test('payments page links all six listings', () => {
 });
 
 test('copy rules', () => {
+  const problems = [];
   for (const page of pages) {
     const text = visibleText(page.root);
-    assert.doesNotMatch(text, EMOJI, `${page.path}: emoji in text`);
+    const emoji = text.match(EMOJI);
+    if (emoji) problems.push(`${page.path}: emoji ${emoji[0]}`);
     for (const word of BANNED_WORDS) {
-      assert.doesNotMatch(text, new RegExp(`\\b${word}\\b`, 'i'), `${page.path}: banned word "${word}"`);
+      const match = text.match(new RegExp(`\\b${word}\\b`, 'i'));
+      if (match) problems.push(`${page.path}: stock word "${match[0]}"`);
     }
+    // English only. Korean is allowed where it is marked up as such (the brand names, lang="ko").
+    const korean = visibleText(page.root, { englishOnly: true }).match(HANGUL);
+    if (korean) problems.push(`${page.path}: Korean text "${korean[0]}" without lang="ko"`);
   }
+  assert.deepEqual(problems, []);
 });
 
 test('hero renders timezone without JS', () => {
-  const home = pageAt('index.html');
-  assert.ok(home, 'home page missing');
-  assert.match(visibleText(home.root), /UTC\+9/);
+  const status = pageAt('index.html')?.root.querySelector('.hero__status');
+  assert.ok(status, 'hero status line missing');
+  assert.match(textWithoutHidden(status), /Seoul \(UTC\+9\)/);
+});
+
+test('social preview card matches the site copy', async () => {
+  const card = parse(await readFile(new URL('../scripts/og/og.html', import.meta.url), 'utf8'));
+  const stale = 'scripts/og/og.html is out of date: edit it, then run bash scripts/og/render.sh';
+  assert.equal(card.querySelector('#name')?.text.trim(), site.name, stale);
+  assert.equal(card.querySelector('#headline')?.text.trim(), site.headline, stale);
+  assert.equal(card.querySelector('.meta')?.text.trim(), `${site.role} · ${site.location} (${site.utcLabel})`, stale);
 });
 
 test('placeholders (strict mode)', async () => {
