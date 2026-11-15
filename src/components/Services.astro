@@ -1,0 +1,71 @@
+---
+import { services } from '../data/services';
+---
+
+<ol class="services" role="list">
+  {
+    services.map((service) => (
+      <li class="service">
+        <h3 class="service__title">{service.title}</h3>
+        <div class="service__text">
+          <p>{service.body}</p>
+          <p class="service__get label">You get</p>
+          <ul class="service__list">
+            {service.deliverables.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .service {
+    display: grid;
+    gap: var(--space-3);
+    padding-block: var(--space-6);
+  }
+
+  .service:first-child {
+    padding-top: 0;
+  }
+
+  .service + .service {
+    border-top: 1px solid var(--rule);
+  }
+
+  .service__title {
+    font-size: var(--step-2);
+    font-weight: 560;
+  }
+
+  .service__text {
+    max-width: var(--measure);
+  }
+
+  .service__get {
+    margin-top: var(--space-4);
+  }
+
+  .service__list {
+    margin-top: var(--space-2);
+    padding-left: 1.1em;
+  }
+
+  .service__list li::marker {
+    color: var(--accent);
+  }
+
+  .service__list li + li {
+    margin-top: 0.25em;
+  }
+
+  @media (min-width: 60rem) {
+    .service {
+      grid-template-columns: minmax(0, 4fr) minmax(0, 5fr);
+      column-gap: var(--space-6);
+    }
+  }
+</style>

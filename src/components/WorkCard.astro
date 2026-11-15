@@ -1,0 +1,114 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import { isPlaceholder } from '../lib/placeholder';
+
+interface Props {
+  entry: CollectionEntry<'work'>;
+}
+
+const { entry } = Astro.props;
+const { title, summary, client, years, platforms, cover, coverAlt } = entry.data;
+const href = `/work/${entry.id}`;
+---
+
+<article class="card">
+  <div class="card__media">
+    <Image src={cover} alt={coverAlt} widths={[640, 960, 1280]} sizes="(min-width: 60rem) 52vw, 100vw" />
+  </div>
+  <div class="card__text">
+    <p class="card__meta mono">
+      <span>{client}</span>
+      <span aria-hidden="true">·</span>
+      <span data-todo={isPlaceholder(years) ? 'years' : undefined}>{years}</span>
+      <span aria-hidden="true">·</span>
+      <span>{platforms.join(', ')}</span>
+    </p>
+    <h3 class="card__title"><a href={href}>{title}</a></h3>
+    <p class="card__summary">{summary}</p>
+    <p class="card__more" aria-hidden="true">Read the case study →</p>
+  </div>
+</article>
+
+<style>
+  .card {
+    position: relative;
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .card + :global(.card) {
+    margin-top: var(--space-8);
+  }
+
+  .card__media :global(img) {
+    width: 100%;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    background: var(--paper-2);
+  }
+
+  .card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+    color: var(--muted);
+  }
+
+  .card__title {
+    margin-top: var(--space-3);
+    font-size: var(--step-2);
+    font-weight: 560;
+  }
+
+  .card__title a {
+    text-decoration: none;
+  }
+
+  /* The title link covers the whole card. */
+  .card__title a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  .card__summary {
+    margin-top: var(--space-3);
+    color: var(--muted);
+    max-width: 52ch;
+  }
+
+  .card__more {
+    margin-top: var(--space-4);
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-underline-offset: 0.2em;
+  }
+
+  .card:hover .card__more {
+    text-decoration-thickness: 2px;
+  }
+
+  .card:hover .card__media :global(img) {
+    border-color: var(--muted);
+  }
+
+  .card:has(a:focus-visible) {
+    outline: 2px solid var(--focus);
+    outline-offset: 8px;
+    border-radius: var(--radius);
+  }
+
+  .card__title a:focus-visible {
+    outline: none;
+  }
+
+  @media (min-width: 60rem) {
+    .card {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      gap: var(--space-6);
+      align-items: center;
+    }
+  }
+</style>

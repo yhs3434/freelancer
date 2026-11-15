@@ -16,7 +16,7 @@
   --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
   --step--1: 0.875rem;
-  --step-0: 1.0625rem;
+  --step-0: 1.125rem;
   --step-1: 1.25rem;
   --step-2: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
   --step-3: clamp(1.875rem, 1.4rem + 2vw, 2.75rem);

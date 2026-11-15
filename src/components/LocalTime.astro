@@ -1,0 +1,23 @@
+---
+interface Props {
+  timeZone: string;
+}
+
+const { timeZone } = Astro.props;
+---
+
+<span class="local-time" data-local-time data-tz={timeZone} hidden></span>
+
+<script is:inline>
+  (() => {
+    const el = document.querySelector('[data-local-time]');
+    if (!el) return;
+    const fmt = new Intl.DateTimeFormat('en-GB', { timeZone: el.dataset.tz, hour: '2-digit', minute: '2-digit' });
+    const tick = () => {
+      el.textContent = `, where it's ${fmt.format(new Date())}`;
+      el.hidden = false;
+    };
+    tick();
+    setInterval(tick, 30000);
+  })();
+</script>

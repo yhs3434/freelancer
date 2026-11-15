@@ -1,9 +1,71 @@
 ---
+import { getCollection } from 'astro:content';
+import About from '../components/About.astro';
+import Closing from '../components/Closing.astro';
+import Faq from '../components/Faq.astro';
+import Hero from '../components/Hero.astro';
+import Process from '../components/Process.astro';
+import ProofStrip from '../components/ProofStrip.astro';
+import Section from '../components/Section.astro';
+import Services from '../components/Services.astro';
+import WorkCard from '../components/WorkCard.astro';
+import { site } from '../data/site';
 import Base from '../layouts/Base.astro';
+
+const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
 ---
 
-<Base title="Freelance product engineer" description="Placeholder home page while the site is being built. Real content arrives in the next tasks.">
-  <div class="wrap">
-    <h1>Site under construction</h1>
-  </div>
+<Base
+  title={`${site.name}: mobile apps, payments, backend and web`}
+  description="Freelance product engineer in Seoul. I build mobile apps for iOS and Android, payment systems, backends, websites and the infrastructure they run on, and I take work through Upwork and Fiverr."
+>
+  <Hero />
+  <ProofStrip />
+
+  <Section id="work" label="Selected work">
+    {work.map((entry) => <WorkCard entry={entry} />)}
+    {
+      site.moreWork.length > 0 && (
+        <ul class="more-work" role="list">
+          {site.moreWork.map((item) => (
+            <li>
+              <strong>{item.title}</strong> <span class="muted">{item.detail}</span>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </Section>
+
+  <Section id="services" label="What I do">
+    <Services />
+  </Section>
+
+  <Section id="how" label="How I work">
+    <Process />
+  </Section>
+
+  <Section id="about" label="About">
+    <About />
+  </Section>
+
+  <Section id="faq" label="Questions">
+    <Faq />
+  </Section>
+
+  <Section id="contact" label="Next step">
+    <Closing />
+  </Section>
 </Base>
+
+<style>
+  .more-work {
+    margin-top: var(--space-7);
+    border-top: 1px solid var(--rule);
+  }
+
+  .more-work li {
+    padding-block: var(--space-3);
+    border-bottom: 1px solid var(--rule);
+  }
+</style>

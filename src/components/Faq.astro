@@ -1,0 +1,36 @@
+---
+import { faq } from '../data/faq';
+---
+
+<dl class="faq">
+  {
+    faq.map((item) => (
+      <div class="faq__item">
+        <dt class="faq__q">{item.q}</dt>
+        <dd class="faq__a">{item.a}</dd>
+      </div>
+    ))
+  }
+</dl>
+
+<style>
+  .faq {
+    display: grid;
+    gap: var(--space-6) var(--space-7);
+  }
+
+  .faq__q {
+    font-weight: 600;
+  }
+
+  .faq__a {
+    margin-top: var(--space-2);
+    color: var(--muted);
+  }
+
+  @media (min-width: 48rem) {
+    .faq {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>

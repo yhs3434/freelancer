@@ -3,6 +3,8 @@ import '@fontsource-variable/ibm-plex-sans';
 import '@fontsource/ibm-plex-mono/400.css';
 import '@fontsource/ibm-plex-mono/500.css';
 import '../styles/global.css';
+import SiteFooter from '../components/SiteFooter.astro';
+import SiteHeader from '../components/SiteHeader.astro';
 
 interface Props {
   title: string;
@@ -37,10 +39,10 @@ const ogImageUrl = new URL(ogImage, Astro.site);
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    <slot name="header" />
+    <SiteHeader />
     <main id="main">
       <slot />
     </main>
-    <slot name="footer" />
+    <SiteFooter />
   </body>
 </html>

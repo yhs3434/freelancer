@@ -1,0 +1,51 @@
+---
+import { site } from '../data/site';
+---
+
+<div class="about">
+  <div class="about__text">
+    {site.about.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+  </div>
+  <dl class="about__timeline">
+    {
+      site.about.timeline.map((item) => (
+        <div class="about__row" data-todo={item.todo ? 'timeline' : undefined}>
+          <dt class="mono">{item.when}</dt>
+          <dd>{item.what}</dd>
+        </div>
+      ))
+    }
+  </dl>
+</div>
+
+<style>
+  .about {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .about__text {
+    max-width: var(--measure);
+  }
+
+  .about__text p + p {
+    margin-top: 1em;
+  }
+
+  .about__row {
+    display: grid;
+    grid-template-columns: 5rem minmax(0, 1fr);
+    gap: var(--space-4);
+    padding-block: var(--space-3);
+    border-top: 1px solid var(--rule);
+  }
+
+  .about__row:last-child {
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .about__row dt {
+    color: var(--muted);
+    padding-top: 0.15em;
+  }
+</style>

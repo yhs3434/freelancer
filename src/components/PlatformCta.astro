@@ -1,0 +1,72 @@
+---
+import { site } from '../data/site';
+
+interface Props {
+  platform: 'upwork' | 'fiverr';
+  label: string;
+  variant?: 'primary' | 'secondary' | 'compact';
+}
+
+const { platform, label, variant = 'primary' } = Astro.props;
+const href = site.platforms[platform];
+---
+
+<a class:list={['cta', `cta--${variant}`]} href={href} data-cta={platform}>{label} <span class="cta__arrow" aria-hidden="true">→</span></a>
+
+<style>
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.8em 1.25em;
+    border: 1px solid var(--ink);
+    border-radius: var(--radius);
+    font-weight: 500;
+    line-height: 1.2;
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+      background-color 120ms ease,
+      color 120ms ease;
+  }
+
+  .cta--primary {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .cta--primary:hover {
+    background: transparent;
+    color: var(--ink);
+  }
+
+  .cta--secondary {
+    background: transparent;
+    color: var(--ink);
+  }
+
+  .cta--secondary:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .cta--compact {
+    padding: 0.5em 0.9em;
+    font-size: var(--step--1);
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .cta--compact:hover {
+    background: transparent;
+    color: var(--ink);
+  }
+
+  .cta__arrow {
+    transition: transform 120ms ease;
+  }
+
+  .cta:hover .cta__arrow {
+    transform: translateX(2px);
+  }
+</style>

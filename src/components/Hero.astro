@@ -1,0 +1,107 @@
+---
+import { Image } from 'astro:assets';
+import { site } from '../data/site';
+import portrait from '../assets/portrait-placeholder.svg';
+import LocalTime from './LocalTime.astro';
+import PlatformCta from './PlatformCta.astro';
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="wrap hero__grid">
+    <div class="hero__text">
+      <p class="label">{site.name} · {site.role}</p>
+      <h1 id="hero-title" class="hero__title">{site.headline}</h1>
+      <p class="hero__intro">{site.intro}</p>
+      <p class="hero__status">
+        <span class="hero__dot" aria-hidden="true"></span>
+        <span>{site.availability}.</span>{' '}
+        <span>Based in {site.location} ({site.utcLabel})<LocalTime timeZone={site.timeZone} />.</span>
+      </p>
+      <div class="hero__ctas">
+        <PlatformCta platform="upwork" label="Hire me on Upwork" />
+        <PlatformCta platform="fiverr" label="See my Fiverr gigs" variant="secondary" />
+      </div>
+    </div>
+    <figure class="hero__portrait" data-todo="portrait">
+      <Image src={portrait} alt={`Portrait of ${site.name} (placeholder until a photo is added)`} width={400} height={500} />
+    </figure>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: var(--space-8) var(--space-8);
+  }
+
+  .hero__grid {
+    display: grid;
+    gap: var(--space-7);
+  }
+
+  .hero__title {
+    margin-top: var(--space-4);
+    font-size: var(--step-4);
+    font-weight: 560;
+    letter-spacing: -0.02em;
+    line-height: 1.06;
+    max-width: 19ch;
+  }
+
+  .hero__intro {
+    margin-top: var(--space-5);
+    max-width: 58ch;
+    font-size: var(--step-1);
+    line-height: 1.55;
+  }
+
+  .hero__status {
+    margin-top: var(--space-5);
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--muted);
+  }
+
+  .hero__dot {
+    display: inline-block;
+    width: 0.55em;
+    height: 0.55em;
+    margin-right: 0.5em;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+    vertical-align: 0.05em;
+  }
+
+  .hero__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+  }
+
+  .hero__portrait {
+    max-width: 18rem;
+  }
+
+  .hero__portrait :global(img) {
+    width: 100%;
+    border-radius: var(--radius);
+  }
+
+  @media (min-width: 60rem) {
+    .hero__grid {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: var(--space-6);
+      align-items: end;
+    }
+
+    .hero__text {
+      grid-column: 1 / 10;
+    }
+
+    .hero__portrait {
+      grid-column: 10 / 13;
+      max-width: none;
+    }
+  }
+</style>

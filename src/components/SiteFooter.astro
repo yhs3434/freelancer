@@ -1,0 +1,33 @@
+---
+import { site } from '../data/site';
+
+const built = new Date();
+const year = built.getFullYear();
+const updated = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }).format(built);
+---
+
+<footer class="site-footer">
+  <div class="wrap site-footer__inner">
+    <p>© {year} {site.name}. {site.location}, {site.utcLabel}.</p>
+    <p class="muted">Built with Astro. No trackers, no cookies.</p>
+    <p class="muted">Last updated {updated}</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--rule);
+    padding-block: var(--space-6) var(--space-7);
+    font-size: var(--step--1);
+  }
+
+  .site-footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-6);
+  }
+
+  .site-footer__inner p:first-child {
+    margin-right: auto;
+  }
+</style>

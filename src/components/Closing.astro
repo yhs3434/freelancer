@@ -1,0 +1,41 @@
+---
+import { site } from '../data/site';
+import PlatformCta from './PlatformCta.astro';
+---
+
+<div class="closing">
+  <p class="closing__heading">{site.cta.heading}</p>
+  <p class="closing__body">{site.cta.body}</p>
+  <div class="closing__ctas">
+    <PlatformCta platform="upwork" label="Message me on Upwork" />
+    <PlatformCta platform="fiverr" label="See my Fiverr gigs" variant="secondary" />
+  </div>
+  <p class="closing__note mono">{site.cta.note}</p>
+</div>
+
+<style>
+  .closing__heading {
+    font-size: var(--step-3);
+    font-weight: 560;
+    letter-spacing: -0.015em;
+    line-height: 1.1;
+  }
+
+  .closing__body {
+    margin-top: var(--space-4);
+    max-width: 52ch;
+  }
+
+  .closing__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+  }
+
+  .closing__note {
+    margin-top: var(--space-5);
+    max-width: 60ch;
+    color: var(--muted);
+  }
+</style>
