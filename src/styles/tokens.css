@@ -1,0 +1,52 @@
+/* Design tokens: paper and ink, one vermilion accent. */
+:root {
+  color-scheme: light dark;
+
+  --paper: #f5f3ee;
+  --paper-2: #ebe8e1;
+  --ink: #191814;
+  --muted: #5f5c54;
+  --rule: #d6d2c7;
+  --accent: #c8442a;
+  --accent-text: #b13a22;
+  --focus: #c8442a;
+
+  --font-sans: 'IBM Plex Sans Variable', 'IBM Plex Sans', -apple-system, BlinkMacSystemFont,
+    'Apple SD Gothic Neo', 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --step--1: 0.875rem;
+  --step-0: 1.0625rem;
+  --step-1: 1.25rem;
+  --step-2: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  --step-3: clamp(1.875rem, 1.4rem + 2vw, 2.75rem);
+  --step-4: clamp(2.25rem, 1.2rem + 5vw, 4rem);
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+  --space-9: 7rem;
+
+  --measure: 64ch;
+  --wrap: 75rem;
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+  --radius: 6px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #141311;
+    --paper-2: #1d1c19;
+    --ink: #ece9e2;
+    --muted: #a29e94;
+    --rule: #33312c;
+    --accent: #e0603f;
+    --accent-text: #ec7a5c;
+    --focus: #ec7a5c;
+  }
+}
