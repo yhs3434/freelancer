@@ -24,7 +24,7 @@ const REQUIRED_PAGES = [
   'index.html',
   'work/payments/index.html',
   'work/card-terminal/index.html',
-  'work/ordering-apps/index.html',
+  'work/isaac-toast/index.html',
   'work/momentbook/index.html',
   '404.html',
 ];
@@ -38,9 +38,9 @@ const PAYMENT_APP_IDS = [
   'com.finnacle.finon.wiz',
 ];
 
-// Isaac Toast and Paik's Coffee: Google Play package ids and App Store ids.
-const ORDERING_PLAY_IDS = ['com.beaverworksinc.smartorder.issac', 'air.kr.paikdabang.android.membership'];
-const ORDERING_APP_STORE_IDS = ['6739762348', '1423434541'];
+// Isaac Toast: Google Play package id and App Store id.
+const ISAAC_TOAST_PLAY_ID = 'com.beaverworksinc.smartorder.issac';
+const ISAAC_TOAST_APP_STORE_ID = '6739762348';
 
 // Upwork forbids sharing contact details (incl. messenger IDs and social handles) before a contract.
 const BLOCKED_HOSTS = [
@@ -212,22 +212,20 @@ test('payments page links all six listings', () => {
   }
 });
 
-test('ordering apps page links both apps on both stores', () => {
-  const page = pageAt('work/ordering-apps/index.html');
-  assert.ok(page, 'ordering apps page missing');
+test('Isaac Toast page links the app on both stores', () => {
+  const page = pageAt('work/isaac-toast/index.html');
+  assert.ok(page, 'Isaac Toast page missing');
   const hrefs = anchors(page).map(({ href }) => href);
   const playIds = hrefs
     .filter((href) => hrefHost(href) === 'play.google.com')
     .map((href) => new URL(href).searchParams.get('id'));
-  for (const id of ORDERING_PLAY_IDS) {
-    assert.ok(playIds.includes(id), `no Play Store link for ${id}`);
-  }
-  for (const id of ORDERING_APP_STORE_IDS) {
-    assert.ok(
-      hrefs.some((href) => hrefHost(href) === 'apps.apple.com' && new URL(href).pathname.endsWith(`/id${id}`)),
-      `no App Store link for id${id}`,
-    );
-  }
+  assert.ok(playIds.includes(ISAAC_TOAST_PLAY_ID), `no Play Store link for ${ISAAC_TOAST_PLAY_ID}`);
+  assert.ok(
+    hrefs.some(
+      (href) => hrefHost(href) === 'apps.apple.com' && new URL(href).pathname.endsWith(`/id${ISAAC_TOAST_APP_STORE_ID}`),
+    ),
+    `no App Store link for id${ISAAC_TOAST_APP_STORE_ID}`,
+  );
 });
 
 test('case pages have no empty Screens section', () => {

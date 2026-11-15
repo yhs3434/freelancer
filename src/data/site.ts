@@ -33,12 +33,12 @@ export const site = {
   about: {
     paragraphs: [
       'Most of my client work has been for Korean payment companies. Shop owners use the apps I built to take a card on their phone or on a card terminal, and to see what the card companies will pay them and when.',
-      "I also worked at Beaver Works as one of the engineers on its app team. The ordering app we built for Isaac Toast later became the new Paik's Coffee app, which Theborn Korea launched in June 2026.",
+      'At Beaver Works I was the only developer on the Isaac Toast ordering app for iOS and Android. It has over 100,000 installs on Google Play.',
       "MomentBook is the product I own. I started it in January 2025 and I'm still the only developer on it. When a server goes down or a store review fails, I'm the one who fixes it, and that is the habit I bring to client work.",
     ],
     timeline: [
       { when: '20XX', what: 'Merchant payment apps and a card terminal app for Finlogistec', todo: true },
-      { when: '20XX', what: "Ordering apps for Isaac Toast and Paik's Coffee, on the app team at Beaver Works", todo: true },
+      { when: '20XX', what: 'The Isaac Toast ordering app, as its only developer at Beaver Works', todo: true },
       { when: '2025–now', what: 'MomentBook, my own app, which I build and run alone' },
     ] satisfies TimelineItem[],
   },
