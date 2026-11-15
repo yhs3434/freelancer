@@ -2,38 +2,12 @@
 import { process } from '../data/process';
 ---
 
-<ul class="process" role="list">
-  {
-    process.map((step) => (
-      <li class="process__item">
-        <h3 class="process__title">{step.title}</h3>
-        <p class="process__body">{step.body}</p>
-      </li>
-    ))
-  }
-</ul>
+<div class="process">
+  {process.map((paragraph) => <p>{paragraph}</p>)}
+</div>
 
 <style>
-  .process {
-    display: grid;
-    gap: var(--space-6) var(--space-7);
-  }
-
-  .process__title {
-    font-size: var(--step-1);
-    font-weight: 600;
-    padding-top: var(--space-3);
-    border-top: 2px solid var(--ink);
-  }
-
-  .process__body {
-    margin-top: var(--space-2);
-    color: var(--muted);
-  }
-
-  @media (min-width: 48rem) {
-    .process {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+  .process p + p {
+    margin-top: 1em;
   }
 </style>

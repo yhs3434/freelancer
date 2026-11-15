@@ -34,7 +34,7 @@ const { brands } = Astro.props;
             <p class="brand__name">
               {brand.name} <span class="brand__ko" lang="ko">{brand.nameKo}</span>
             </p>
-            <a class="brand__link mono" href={brand.href}>
+            <a class="brand__link" href={brand.href}>
               Google Play<span class="visually-hidden">: {brand.name}</span> →
             </a>
           </div>
@@ -82,6 +82,7 @@ const { brands } = Astro.props;
   }
 
   .brand__link {
+    font-size: var(--step--1);
     color: var(--muted);
   }
 

@@ -2,7 +2,7 @@
 
 사이트에 들어간 자리 표시자와, 사실인지 확인이 필요한 초안 문구입니다. 공개 전에 모두 채우거나 고치세요.
 
-`STRICT=1 npm test`는 `TODO`, `example.com`, `data-todo`가 붙은 자리 표시자만 찾아냅니다. 아래 표에서 "STRICT" 열이 "잡음"인 항목입니다. 나머지(이름, 앱 영문 표기, 초안 주장)는 표시가 없어 테스트를 통과하므로 직접 확인해야 합니다. 배포 빌드 명령도 `STRICT=1 npm test`로 두면 자리 표시자가 남은 채로는 배포되지 않습니다(README "Deploy").
+`STRICT=1 npm test`는 `TODO`, `example.com`, `data-todo`가 붙은 자리 표시자만 찾아냅니다. 아래 표에서 "STRICT" 열이 "잡음"인 항목입니다. 나머지(앱 영문 표기, 초안 주장, 문구의 말투)는 표시가 없어 테스트를 통과하므로 직접 확인해야 합니다. 배포 빌드 명령도 `STRICT=1 npm test`로 두면 자리 표시자가 남은 채로는 배포되지 않습니다(README "Deploy").
 
 ## 자리 표시자 (반드시 채워야 공개 가능)
 
@@ -11,9 +11,10 @@
 | Upwork 프로필 URL | `src/data/site.ts` → `platforms.upwork` | `~TODO` | 잡음 |
 | Fiverr 프로필 URL | `src/data/site.ts` → `platforms.fiverr` | `TODO` | 잡음 |
 | 도메인 | `astro.config.mjs` `SITE_URL`, `public/robots.txt` | `example.com` | 잡음 |
-| 프로필 사진 | `src/assets/portrait-placeholder.svg`를 실제 사진으로 교체 | 회색 자리 | 잡음 |
-| 경력 연도 | `site.ts` → `about.timeline[].when`, 케이스 스터디 `years` | `20XX` | 잡음 |
-| 이름(성 포함) | `site.ts` → `name`, `intro`, `scripts/og/og.html` (바꾼 뒤 `bash scripts/og/render.sh`) | `Hansol` (macOS 사용자명에서 추정) | 못 잡음 (og.html과 site.ts가 다르면 테스트가 실패) |
+| 프로필 사진 | About 섹션. `src/assets/portrait-placeholder.svg`를 실제 사진으로 교체 | 회색 자리 | 잡음 |
+| 결제 앱 작업 연도 | `site.ts` → `about.timeline[0].when`, 결제 케이스 스터디 `years` | `20XX` | 잡음 |
+
+이미 채운 항목: 이름은 `Hansol Yoon`(MomentBook 커밋 작성자 이름, 2026-11-15 확정). MomentBook 기간은 `2025–now`(첫 커밋 2025-01-21). 이름을 바꾸면 `scripts/og/og.html`도 고치고 `bash scripts/og/render.sh`를 실행하세요. 둘이 다르면 테스트가 실패합니다.
 
 ## 확인이 필요한 주장 (초안으로 써 둔 문장)
 
@@ -25,11 +26,24 @@
 | 앱 영문 표기 | 결제 케이스 스터디 `brands[].name` | SOLOMON·Ftoo·ATEE는 로고에서 확인. Umji Pay, Umji Pay D1, Pay Hanul은 로마자 추정 |
 | "latest release went out in November 2026" | 결제 케이스 스터디 Outcome | 2026-11-15 Play Store 기준. 시간이 지나면 틀리므로 공개 시점에 다시 확인하거나 문장을 빼기 |
 | 고객사 공개 허락 | 결제 케이스 스터디 | Finlogistec 앱 이름·스크린샷을 포트폴리오에 써도 되는지(NDA) |
-| 결제 실패 사례 문구 | `services.ts` "Payments that add up" | 중복 승인, 승인 중 끊김, 정산 불일치를 실제로 다뤘는지 |
+| 결제 실패 사례 문구 | `services.ts` "Card payments and payment links" | 승인 중 시간 초과, 정산 불일치를 실제로 다뤘는지 |
 | 응답 시간 "one working day" | `faq.ts` 시간대 답변 | 지킬 수 있는 약속인지 |
-| 출시 후 버그 수정 기간 | `process.ts` "Still here after launch" | 기간(예: 30일)을 적을지 |
+| 출시 후 버그 수정 기간 | `process.ts` 마지막 문단 | 기간(예: 30일)을 적을지 |
+| "about 5,300 commits since January 2025" | `site.ts` `intro`, MomentBook 케이스 스터디 | 2026-11-15 `git rev-list --count HEAD` 기준 5,304개. 숫자는 시간이 지나면 늘어나므로 공개 전에 다시 세기 |
 | 디자인 가능 범위 | `faq.ts` "Do you also design?" | 실제로 화면 디자인까지 하는지 |
 | 영어 업무 가능 여부 | (아직 사이트에 없음) | 쓰려면 About에 추가 |
-| MomentBook 기간·역할 | MomentBook 케이스 스터디 `years`, `role` | 혼자 만들었는지, 디자인 포함인지 |
+| MomentBook 역할 | MomentBook 케이스 스터디 `role` | 커밋은 전부 본인. 화면 디자인도 직접 했는지 |
 | "More work" 목록 | `site.ts` → `moreWork` | 비어 있으면 섹션이 숨겨짐. 한 줄 소개할 작업이 있으면 추가 |
 | 후기 | (섹션 없음) | 실제 Upwork/Fiverr 후기가 생기면 추가 |
+
+## 말투 다듬기 (공개 전에 꼭)
+
+지금 문구는 초안입니다. 2026-11-15에 AI가 쓴 글에서 자주 보이는 패턴을 걷어냈지만, 마지막은 본인 말투여야 합니다. 개인 프리랜서 페이지는 진정성이 중요한 글이라, AI가 썼다고 느껴지면 신뢰가 가장 크게 떨어집니다(NN/g, 2026). 모든 문장을 소리 내어 읽고, 고객과 통화할 때 하지 않을 말이면 고치세요.
+
+문구를 고치거나 AI로 다시 쓸 때 피할 패턴입니다(자세한 내용과 출처는 `DESIGN.md`).
+
+- "X, not Y", "not just", "rather than" 같은 대조 문장. 테스트가 막습니다.
+- em dash(—). 테스트가 막습니다.
+- "A, B and C" 3개 나열을 습관처럼 쓰기. 예시는 하나나 둘, 아니면 실제 전체 목록으로 쓰세요.
+- 콜론으로 뒷말을 터뜨리는 문장, 모든 주장 뒤에 ", so …", "because …" 이유를 붙이는 습관.
+- 누구나 쓸 수 있는 말("one person who knows how the pieces fit")은 빼고, 날짜·숫자·버전·스토어 링크처럼 확인할 수 있는 사실로 바꾸기.

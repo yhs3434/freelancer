@@ -31,8 +31,7 @@ const { data } = entry;
 <Base title={`${data.title} · ${site.name}`} description={data.summary}>
   <article class="case">
     <header class="wrap case__head">
-      <p class="case__back mono"><a href="/#work">← All work</a></p>
-      <p class="label">Case study</p>
+      <p class="case__back"><a href="/#work">← All work</a></p>
       <h1 class="case__title">{data.title}</h1>
       <p class="case__summary">{data.summary}</p>
     </header>
@@ -56,9 +55,9 @@ const { data } = entry;
       </div>
     </div>
 
-    <section class="case__gallery" aria-label="Screens">
+    <section class="case__gallery" aria-labelledby="screens-title">
       <div class="wrap">
-        <h2 class="label">Screens</h2>
+        <h2 class="case__h2" id="screens-title">Screens</h2>
       </div>
       <Gallery items={data.gallery} label={`Screens from ${data.title}`} />
     </section>
@@ -67,8 +66,8 @@ const { data } = entry;
       data.brands && (
         <section class="case__brands" aria-labelledby="brands-title">
           <div class="wrap">
-            <h2 class="label" id="brands-title">
-              {data.brands.length} brands, one product
+            <h2 class="case__h2" id="brands-title">
+              The same app under {data.brands.length} brands
             </h2>
             <BrandGrid brands={data.brands} />
           </div>
@@ -79,14 +78,14 @@ const { data } = entry;
     {
       next.id !== entry.id && (
         <nav class="wrap case__next" aria-label="Next case study">
-          <p class="label">Next</p>
+          <p class="muted">Next case study</p>
           <a href={`/work/${next.id}`}>{next.data.title} →</a>
         </nav>
       )
     }
   </article>
 
-  <Section id="contact" label="Next step">
+  <Section id="contact" title={site.cta.heading}>
     <Closing />
   </Section>
 </Base>
@@ -97,7 +96,8 @@ const { data } = entry;
   }
 
   .case__back {
-    margin-bottom: var(--space-6);
+    margin-bottom: var(--space-5);
+    font-size: var(--step--1);
   }
 
   .case__back a {
@@ -110,9 +110,7 @@ const { data } = entry;
   }
 
   .case__title {
-    margin-top: var(--space-3);
     font-size: var(--step-4);
-    font-weight: 560;
     letter-spacing: -0.02em;
     line-height: 1.06;
     max-width: 20ch;
@@ -140,24 +138,14 @@ const { data } = entry;
     margin-top: var(--space-6);
   }
 
-  .case__gallery {
-    margin-top: var(--space-8);
-    padding-top: var(--space-6);
-    border-top: 1px solid var(--rule);
-  }
-
-  .case__gallery h2 {
+  .case__h2 {
+    font-size: var(--step-2);
     margin-bottom: var(--space-5);
   }
 
+  .case__gallery,
   .case__brands {
-    margin-top: var(--space-8);
-    padding-top: var(--space-6);
-    border-top: 1px solid var(--rule);
-  }
-
-  .case__brands h2 {
-    margin-bottom: var(--space-5);
+    margin-top: var(--space-9);
   }
 
   .case__next {

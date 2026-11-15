@@ -14,23 +14,23 @@ const { client, years, platforms, role, links } = Astro.props;
 
 <dl class="meta">
   <div>
-    <dt class="label">Client</dt>
+    <dt>Client</dt>
     <dd>{client}</dd>
   </div>
   <div data-todo={isPlaceholder(years) ? 'years' : undefined}>
-    <dt class="label">Years</dt>
+    <dt>Years</dt>
     <dd>{years}</dd>
   </div>
   <div>
-    <dt class="label">Platforms</dt>
+    <dt>Platforms</dt>
     <dd>{platforms.join(', ')}</dd>
   </div>
   <div>
-    <dt class="label">My role</dt>
+    <dt>My role</dt>
     <dd>{role}</dd>
   </div>
   <div>
-    <dt class="label">Links</dt>
+    <dt>Links</dt>
     <dd>
       <ul role="list">
         {links.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
@@ -42,17 +42,12 @@ const { client, years, platforms, role, links } = Astro.props;
 <style>
   .meta {
     display: grid;
-    gap: var(--space-4);
+    gap: var(--space-3);
     font-size: var(--step--1);
   }
 
-  .meta > div {
-    padding-top: var(--space-3);
-    border-top: 1px solid var(--rule);
-  }
-
-  .meta dd {
-    margin-top: var(--space-1);
+  .meta dt {
+    color: var(--muted);
   }
 
   .meta li + li {

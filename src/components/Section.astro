@@ -1,15 +1,17 @@
 ---
 interface Props {
   id: string;
-  label: string;
+  title: string;
+  /** Wide sections use the full page width and get more room above. Default sections keep one reading column. */
+  wide?: boolean;
 }
 
-const { id, label } = Astro.props;
+const { id, title, wide = false } = Astro.props;
 ---
 
-<section class="section" id={id} aria-labelledby={`${id}-label`}>
-  <div class="wrap section__grid">
-    <h2 class="label section__label" id={`${id}-label`}>{label}</h2>
+<section class:list={['section', { 'section--wide': wide }]} id={id} aria-labelledby={`${id}-title`}>
+  <div class="wrap">
+    <h2 class="section__title" id={`${id}-title`}>{title}</h2>
     <div class="section__body">
       <slot />
     </div>
@@ -18,35 +20,28 @@ const { id, label } = Astro.props;
 
 <style>
   .section {
-    border-top: 1px solid var(--rule);
-    padding-block: var(--space-7) var(--space-8);
+    padding-top: var(--space-8);
   }
 
-  .section__grid {
-    display: grid;
-    gap: var(--space-5);
+  .section--wide {
+    padding-top: var(--space-9);
   }
 
-  .section__label {
-    line-height: 1.6;
-    letter-spacing: 0.08em;
+  .section__title {
+    font-size: var(--step-3);
+    letter-spacing: -0.02em;
   }
 
-  @media (min-width: 60rem) {
-    .section__grid {
-      grid-template-columns: repeat(12, minmax(0, 1fr));
-      column-gap: var(--space-6);
-    }
+  .section__body {
+    margin-top: var(--space-5);
+  }
 
-    .section__label {
-      grid-column: 1 / 4;
-      position: sticky;
-      top: 5.5rem;
-      align-self: start;
-    }
+  .section:not(.section--wide) .section__title,
+  .section:not(.section--wide) .section__body {
+    max-width: 44rem;
+  }
 
-    .section__body {
-      grid-column: 4 / 13;
-    }
+  .section--wide .section__body {
+    margin-top: var(--space-6);
   }
 </style>

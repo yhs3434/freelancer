@@ -1,18 +1,19 @@
-/* Design tokens: paper and ink, one vermilion accent. */
+/*
+ * Design tokens. A white page and black text with no accent colour: the only colour on the
+ * page comes from the real app screenshots. Why, and what to avoid: DESIGN.md.
+ */
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
 
-  --paper: #f5f3ee;
-  --paper-2: #ebe8e1;
-  --ink: #191814;
-  --muted: #5f5c54;
-  --rule: #d6d2c7;
-  --accent: #c8442a;
-  --focus: #c8442a;
+  --paper: #ffffff;
+  --paper-2: #f3f3f3;
+  --ink: #1a1a1a;
+  --muted: #5c5c5c;
+  --rule: #e4e4e4;
+  --focus: #1a1a1a;
 
   --font-sans: 'IBM Plex Sans Variable', 'IBM Plex Sans', -apple-system, BlinkMacSystemFont,
     'Apple SD Gothic Neo', 'Segoe UI', sans-serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
   --step--1: 0.875rem;
   --step-0: 1.125rem;
@@ -35,16 +36,4 @@
   --wrap: 75rem;
   --gutter: clamp(1rem, 4vw, 2.5rem);
   --radius: 6px;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #141311;
-    --paper-2: #1d1c19;
-    --ink: #ece9e2;
-    --muted: #a29e94;
-    --rule: #33312c;
-    --accent: #e0603f;
-    --focus: #ec7a5c;
-  }
 }

@@ -1,6 +1,6 @@
 ---
 title: Merchant payment apps for six brands
-summary: Card payments on a phone, payment links, and a daily sales ledger for small businesses in Korea. The same product ships on Google Play under six brands, each with its own name, logo and colors.
+summary: A merchant app for small shops in Korea that takes card payments on a phone and keeps the day's sales. The same product ships on Google Play under six brands.
 order: 1
 client: Finlogistec
 years: 20XX
@@ -60,24 +60,24 @@ brands:
 
 ## The situation
 
-A small shop in Korea usually takes cards on a dedicated terminal and keeps its sales in a notebook or a spreadsheet. Finlogistec wanted one app a business owner could use for both: take a card payment on their phone, send a payment link to a customer who isn't in the shop, and see the day's sales and the coming settlements without calling the card company.
+A small shop in Korea usually takes cards on a separate terminal and tracks its sales in a notebook. Finlogistec wanted one app a shop owner could use for both. It takes card payments on the owner's phone and sends payment links to customers who aren't in the shop. It also shows what the card companies will pay out, and when.
 
 ## What I built
 
-- **Card payments on the phone.** The merchant enters the card details on their own phone, with no POS terminal, and can cancel a payment from the same screen.
-- **Payment links.** A link the merchant sends by text or messenger, so a customer can pay remotely.
-- **A sales ledger.** A calendar of daily sales, the full transaction history, and the date each card settlement is expected in the bank account.
-- **Closing alerts.** A push notification with the day's total at the end of business.
-- **Six brands from one product.** Each brand has its own name, icon, colors and store listing on top of the same features.
+- Card payments on the merchant's own phone, with no POS terminal, including cancellations.
+- Payment links the merchant sends by text or messenger.
+- A sales calendar with every transaction and the date each card settlement should reach the bank.
+- A push notification with the day's total at closing time.
+- Six brands on one product. Each brand has its own name, icon, colors and store listing.
 
 ## The hard parts
 
 <div data-todo="payments-hard-parts">
 
-Money apps are judged by their worst day. A payment that times out has to end up either approved or cancelled, never both, and a sales total has to match what the card company actually pays out. Six brands also means every release goes out six times, so brand differences belong in configuration, not in forked code.
+Money apps are judged by their worst day. A payment that times out must end up either approved or cancelled, and the sales total has to match what the card company actually pays. Six brands also means every release goes out six times, so everything that differs between brands lives in configuration.
 
 </div>
 
 ## Outcome
 
-All six apps are live on Google Play under Finlogistec, and they are still being updated: the latest release went out in November 2026.
+All six apps are live on Google Play under Finlogistec and still get updates. The latest one went out in November 2026.

@@ -1,6 +1,6 @@
 # Freelance site
 
-The site I link from my Upwork and Fiverr profiles. It shows what I do, two shipped products, and how to hire me on those platforms. It is a static Astro build with no client framework and no trackers. The only script is a few lines that show the local time in Seoul.
+The site I link from my Upwork and Fiverr profiles. It shows what I do, two shipped products, and how to hire me on those platforms. It is a static Astro build with no client-side JavaScript and no trackers. `DESIGN.md` has the visual and writing rules that keep it from reading as AI-made.
 
 ## Run it
 
@@ -42,14 +42,14 @@ After changing the name, role or headline, update `scripts/og/og.html` and run `
 
 Any static host works (Vercel, Cloudflare Pages, Netlify). Set the build command to `STRICT=1 npm test`, not `npm run build`: it builds the same `dist/`, and it also stops the deploy while a placeholder is left, so a `~TODO` Upwork link or an `example.com` canonical URL never goes live. Output directory `dist`, Node 24. The host and domain are not chosen yet.
 
-## Quality checks (15 November 2026)
+## Quality checks (15 November 2026, after the design pass)
 
 Lighthouse 12, mobile emulation, local preview:
 
 | Page | Performance | Accessibility | Best practices | SEO |
 |---|---|---|---|---|
-| `/` | 99 | 100 | 100 | 100 |
-| `/work/payments` | 99 | 100 | 100 | 100 |
-| `/work/momentbook` | 98 | 100 | 100 | 100 |
+| `/` | 100 | 100 | 100 | 100 |
+| `/work/payments` | 100 | 100 | 100 | 100 |
+| `/work/momentbook` | 100 | 100 | 100 | 100 |
 
-Text contrast (WCAG): ink on paper 16.0:1 (light) and 15.3:1 (dark); muted text 5.5:1 or higher in both themes. The accent color is used only for large numerals, dots and underlines (4.4:1 light, 5.2:1 dark).
+Text contrast (WCAG): ink on white 17.4:1, muted text 6.7:1 on white and 6.0:1 on the light grey image backdrop. There is no accent colour and no dark theme.

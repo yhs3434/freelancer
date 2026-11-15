@@ -5,7 +5,6 @@ import Closing from '../components/Closing.astro';
 import Faq from '../components/Faq.astro';
 import Hero from '../components/Hero.astro';
 import Process from '../components/Process.astro';
-import ProofStrip from '../components/ProofStrip.astro';
 import Section from '../components/Section.astro';
 import Services from '../components/Services.astro';
 import WorkCard from '../components/WorkCard.astro';
@@ -16,13 +15,12 @@ const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.
 ---
 
 <Base
-  title={`${site.name}: mobile apps, payments, backend and web`}
-  description="Freelance product engineer in Seoul. I build mobile apps for iOS and Android, payment systems, backends, websites and the infrastructure they run on, and I take work through Upwork and Fiverr."
+  title={`${site.name}, freelance engineer: mobile apps and payments`}
+  description="Freelance engineer in Seoul. I build mobile apps that take payments and the servers behind them. I take new work through Upwork and Fiverr."
 >
   <Hero />
-  <ProofStrip />
 
-  <Section id="work" label="Selected work">
+  <Section id="work" title="Work I've shipped" wide>
     {work.map((entry) => <WorkCard entry={entry} />)}
     {
       site.moreWork.length > 0 && (
@@ -37,23 +35,23 @@ const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.
     }
   </Section>
 
-  <Section id="services" label="What I do">
+  <Section id="services" title="What I can build for you">
     <Services />
   </Section>
 
-  <Section id="how" label="How I work">
+  <Section id="how" title="How I work">
     <Process />
   </Section>
 
-  <Section id="about" label="About">
+  <Section id="about" title="About me">
     <About />
   </Section>
 
-  <Section id="faq" label="Questions">
+  <Section id="faq" title="Questions">
     <Faq />
   </Section>
 
-  <Section id="contact" label="Next step">
+  <Section id="contact" title={site.cta.heading}>
     <Closing />
   </Section>
 </Base>
@@ -61,11 +59,9 @@ const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.
 <style>
   .more-work {
     margin-top: var(--space-7);
-    border-top: 1px solid var(--rule);
   }
 
-  .more-work li {
-    padding-block: var(--space-3);
-    border-bottom: 1px solid var(--rule);
+  .more-work li + li {
+    margin-top: var(--space-3);
   }
 </style>

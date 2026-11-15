@@ -4,11 +4,9 @@
 set -euo pipefail
 root="$(cd "$(dirname "$0")/../.." && pwd)"
 chrome="${CHROME:-/Applications/Google Chrome.app/Contents/MacOS/Google Chrome}"
-# Chrome falls back to a system font without a word if the webfonts are missing, so check first.
-for font in "$root"/node_modules/@fontsource-variable/ibm-plex-sans/files/ibm-plex-sans-latin-wght-normal.woff2 \
-  "$root"/node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2; do
-  [[ -f "$font" ]] || { echo "missing $font: run npm install first" >&2; exit 1; }
-done
+# Chrome falls back to a system font without a word if the webfont is missing, so check first.
+font="$root/node_modules/@fontsource-variable/ibm-plex-sans/files/ibm-plex-sans-latin-wght-normal.woff2"
+[[ -f "$font" ]] || { echo "missing $font: run npm install first" >&2; exit 1; }
 profile="$(mktemp -d)"
 trap 'rm -rf "$profile"' EXIT
 "$chrome" --headless=new --disable-gpu --hide-scrollbars --allow-file-access-from-files \

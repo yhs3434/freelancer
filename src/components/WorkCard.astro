@@ -1,14 +1,13 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
-import { isPlaceholder } from '../lib/placeholder';
 
 interface Props {
   entry: CollectionEntry<'work'>;
 }
 
 const { entry } = Astro.props;
-const { title, summary, client, years, platforms, cover, coverAlt } = entry.data;
+const { title, summary, cover, coverAlt } = entry.data;
 const href = `/work/${entry.id}`;
 ---
 
@@ -17,13 +16,6 @@ const href = `/work/${entry.id}`;
     <Image src={cover} alt={coverAlt} widths={[640, 960, 1280]} sizes="(min-width: 60rem) 52vw, 100vw" />
   </div>
   <div class="card__text">
-    <p class="card__meta mono">
-      <span>{client}</span>
-      <span aria-hidden="true">·</span>
-      <span data-todo={isPlaceholder(years) ? 'years' : undefined}>{years}</span>
-      <span aria-hidden="true">·</span>
-      <span>{platforms.join(', ')}</span>
-    </p>
     <h3 class="card__title"><a href={href}>{title}</a></h3>
     <p class="card__summary">{summary}</p>
     <p class="card__more" aria-hidden="true">Read the case study →</p>
@@ -48,15 +40,7 @@ const href = `/work/${entry.id}`;
     background: var(--paper-2);
   }
 
-  .card__meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5em;
-    color: var(--muted);
-  }
-
   .card__title {
-    margin-top: var(--space-3);
     font-size: var(--step-2);
     font-weight: 560;
   }
@@ -82,12 +66,12 @@ const href = `/work/${entry.id}`;
     margin-top: var(--space-4);
     font-weight: 500;
     text-decoration: underline;
-    text-decoration-color: var(--accent);
+    text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
     text-underline-offset: 0.2em;
   }
 
   .card:hover .card__more {
-    text-decoration-thickness: 2px;
+    text-decoration-color: currentColor;
   }
 
   .card:hover .card__media :global(img) {

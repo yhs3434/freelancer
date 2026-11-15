@@ -95,6 +95,11 @@ const BANNED_WORDS = [
   'delv\\w*',
 ];
 const HANGUL = /\p{Script=Hangul}+/u;
+// Writing tics that read as generated (see DESIGN.md): em dashes and "X, not Y" contrasts.
+const WRITING_PATTERNS = {
+  'em dash': /\u2014/,
+  'negative parallelism': /, not (?:just |only )?\w|\bnot just\b|\brather than\b|\binstead of\b/i,
+};
 // Emoji and pictographs, except the typographic ©, ® and ™.
 const EMOJI = /(?![©®™])\p{Extended_Pictographic}/u;
 
@@ -211,6 +216,18 @@ test('copy rules', () => {
   assert.deepEqual(problems, []);
 });
 
+test('writing patterns', () => {
+  const problems = [];
+  for (const page of pages) {
+    const text = visibleText(page.root);
+    for (const [kind, pattern] of Object.entries(WRITING_PATTERNS)) {
+      const match = text.match(new RegExp(`.{0,40}(?:${pattern.source}).{0,20}`, pattern.flags));
+      if (match) problems.push(`${page.path}: ${kind} "${match[0].trim()}"`);
+    }
+  }
+  assert.deepEqual(problems, []);
+});
+
 test('hero renders timezone without JS', () => {
   const status = pageAt('index.html')?.root.querySelector('.hero__status');
   assert.ok(status, 'hero status line missing');
@@ -222,7 +239,7 @@ test('social preview card matches the site copy', async () => {
   const stale = 'scripts/og/og.html is out of date: edit it, then run bash scripts/og/render.sh';
   assert.equal(card.querySelector('#name')?.text.trim(), site.name, stale);
   assert.equal(card.querySelector('#headline')?.text.trim(), site.headline, stale);
-  assert.equal(card.querySelector('.meta')?.text.trim(), `${site.role} · ${site.location} (${site.utcLabel})`, stale);
+  assert.equal(card.querySelector('.meta')?.text.trim(), `${site.role} in ${site.location}`, stale);
 });
 
 test('placeholders (strict mode)', async () => {
