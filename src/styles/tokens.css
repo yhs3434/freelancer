@@ -8,7 +8,6 @@
   --muted: #5f5c54;
   --rule: #d6d2c7;
   --accent: #c8442a;
-  --accent-text: #b13a22;
   --focus: #c8442a;
 
   --font-sans: 'IBM Plex Sans Variable', 'IBM Plex Sans', -apple-system, BlinkMacSystemFont,
@@ -46,7 +45,6 @@
     --muted: #a29e94;
     --rule: #33312c;
     --accent: #e0603f;
-    --accent-text: #ec7a5c;
     --focus: #ec7a5c;
   }
 }

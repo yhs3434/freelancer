@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>OG image</title>
+    <style>
+      @font-face {
+        font-family: 'Plex Sans';
+        src: url('../../node_modules/@fontsource-variable/ibm-plex-sans/files/ibm-plex-sans-latin-wght-normal.woff2') format('woff2');
+        font-weight: 100 700;
+      }
+      @font-face {
+        font-family: 'Plex Mono';
+        src: url('../../node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2') format('woff2');
+      }
+      * { margin: 0; box-sizing: border-box; }
+      html, body { width: 1200px; height: 630px; }
+      body {
+        background: #f5f3ee;
+        color: #191814;
+        font-family: 'Plex Sans', sans-serif;
+        padding: 72px 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-bottom: 10px solid #c8442a;
+      }
+      .name { display: flex; align-items: center; gap: 14px; font-size: 30px; font-weight: 600; }
+      .dot { width: 16px; height: 16px; border-radius: 50%; background: #c8442a; }
+      h1 { font-size: 64px; font-weight: 560; line-height: 1.06; letter-spacing: -0.02em; max-width: 960px; }
+      .meta { font-family: 'Plex Mono', monospace; font-size: 22px; color: #5f5c54; letter-spacing: 0.02em; }
+    </style>
+  </head>
+  <body>
+    <p class="name"><span class="dot"></span><span id="name">Hansol</span></p>
+    <h1 id="headline">I build the app, the backend behind it, and the payments that run through it.</h1>
+    <p class="meta">Freelance product engineer · Seoul (UTC+9)</p>
+  </body>
+</html>

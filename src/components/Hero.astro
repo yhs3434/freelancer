@@ -88,6 +88,13 @@ import PlatformCta from './PlatformCta.astro';
     border-radius: var(--radius);
   }
 
+  @media (prefers-color-scheme: dark) {
+    /* The grey placeholder is drawn for a light page; dim it until a real photo replaces it. */
+    .hero__portrait[data-todo] :global(img) {
+      filter: brightness(0.32);
+    }
+  }
+
   @media (min-width: 60rem) {
     .hero__grid {
       grid-template-columns: repeat(12, minmax(0, 1fr));
