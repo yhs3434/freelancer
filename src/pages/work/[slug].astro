@@ -1,0 +1,192 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { Image } from 'astro:assets';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BrandGrid from '../../components/BrandGrid.astro';
+import CaseMeta from '../../components/CaseMeta.astro';
+import Closing from '../../components/Closing.astro';
+import Gallery from '../../components/Gallery.astro';
+import Section from '../../components/Section.astro';
+import { site } from '../../data/site';
+import Base from '../../layouts/Base.astro';
+
+export const getStaticPaths = (async () => {
+  const entries = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+  return entries.map((entry, index) => ({
+    params: { slug: entry.id },
+    props: { entry, next: entries[(index + 1) % entries.length] },
+  }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  entry: CollectionEntry<'work'>;
+  next: CollectionEntry<'work'>;
+}
+
+const { entry, next } = Astro.props;
+const { Content } = await render(entry);
+const { data } = entry;
+---
+
+<Base title={`${data.title} · ${site.name}`} description={data.summary}>
+  <article class="case">
+    <header class="wrap case__head">
+      <p class="case__back mono"><a href="/#work">← All work</a></p>
+      <p class="label">Case study</p>
+      <h1 class="case__title">{data.title}</h1>
+      <p class="case__summary">{data.summary}</p>
+    </header>
+
+    <div class="wrap case__grid">
+      <aside class="case__meta">
+        <CaseMeta client={data.client} years={data.years} platforms={data.platforms} role={data.role} links={data.links} />
+      </aside>
+      <div class="case__main">
+        <Image
+          class="case__cover"
+          src={data.cover}
+          alt={data.coverAlt}
+          widths={[720, 1080, 1600]}
+          sizes="(min-width: 60rem) 70vw, 100vw"
+          loading="eager"
+        />
+        <div class="prose case__body">
+          <Content />
+        </div>
+      </div>
+    </div>
+
+    <section class="case__gallery" aria-label="Screens">
+      <div class="wrap">
+        <h2 class="label">Screens</h2>
+      </div>
+      <Gallery items={data.gallery} label={`Screens from ${data.title}`} />
+    </section>
+
+    {
+      data.brands && (
+        <section class="case__brands" aria-labelledby="brands-title">
+          <div class="wrap">
+            <h2 class="label" id="brands-title">
+              {data.brands.length} brands, one product
+            </h2>
+            <BrandGrid brands={data.brands} />
+          </div>
+        </section>
+      )
+    }
+
+    {
+      next.id !== entry.id && (
+        <nav class="wrap case__next" aria-label="Next case study">
+          <p class="label">Next</p>
+          <a href={`/work/${next.id}`}>{next.data.title} →</a>
+        </nav>
+      )
+    }
+  </article>
+
+  <Section id="contact" label="Next step">
+    <Closing />
+  </Section>
+</Base>
+
+<style>
+  .case__head {
+    padding-block: var(--space-7) var(--space-6);
+  }
+
+  .case__back {
+    margin-bottom: var(--space-6);
+  }
+
+  .case__back a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .case__back a:hover {
+    color: var(--ink);
+  }
+
+  .case__title {
+    margin-top: var(--space-3);
+    font-size: var(--step-4);
+    font-weight: 560;
+    letter-spacing: -0.02em;
+    line-height: 1.06;
+    max-width: 20ch;
+  }
+
+  .case__summary {
+    margin-top: var(--space-5);
+    max-width: 60ch;
+    font-size: var(--step-1);
+    line-height: 1.55;
+  }
+
+  .case__grid {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .case__cover {
+    width: 100%;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+  }
+
+  .case__body {
+    margin-top: var(--space-6);
+  }
+
+  .case__gallery {
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--rule);
+  }
+
+  .case__gallery h2 {
+    margin-bottom: var(--space-5);
+  }
+
+  .case__brands {
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--rule);
+  }
+
+  .case__brands h2 {
+    margin-bottom: var(--space-5);
+  }
+
+  .case__next {
+    margin-block: var(--space-8);
+  }
+
+  .case__next a {
+    display: inline-block;
+    margin-top: var(--space-2);
+    font-size: var(--step-2);
+    font-weight: 560;
+    letter-spacing: -0.015em;
+  }
+
+  @media (min-width: 60rem) {
+    .case__grid {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: var(--space-6);
+    }
+
+    .case__meta {
+      grid-column: 1 / 4;
+      position: sticky;
+      top: 5.5rem;
+      align-self: start;
+    }
+
+    .case__main {
+      grid-column: 4 / 13;
+    }
+  }
+</style>

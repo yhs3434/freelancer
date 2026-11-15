@@ -1,0 +1,29 @@
+---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+}
+
+const { src, alt } = Astro.props;
+---
+
+<div class="phone">
+  <Image src={src} alt={alt} widths={[280, 560]} sizes="15rem" />
+</div>
+
+<style>
+  .phone {
+    padding: 0.5rem;
+    border-radius: 2rem;
+    background: #191814;
+    box-shadow: 0 1px 0 var(--rule);
+  }
+
+  .phone :global(img) {
+    width: 100%;
+    border-radius: 1.55rem;
+  }
+</style>

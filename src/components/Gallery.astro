@@ -1,0 +1,79 @@
+---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+import PhoneFrame from './PhoneFrame.astro';
+
+interface Item {
+  src: ImageMetadata;
+  alt: string;
+  caption?: string;
+  kind: 'phone' | 'composed';
+}
+
+interface Props {
+  items: Item[];
+  label: string;
+}
+
+const { items, label } = Astro.props;
+---
+
+<div class="gallery" role="region" aria-label={label} tabindex="0">
+  <ul class="gallery__track" role="list">
+    {
+      items.map((item) => (
+        <li class="gallery__item">
+          <figure>
+            {item.kind === 'phone' ? (
+              <PhoneFrame src={item.src} alt={item.alt} />
+            ) : (
+              <Image class="gallery__img" src={item.src} alt={item.alt} widths={[320, 640]} sizes="16rem" />
+            )}
+            {item.caption && <figcaption class="gallery__caption">{item.caption}</figcaption>}
+          </figure>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .gallery {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    padding-bottom: var(--space-4);
+    scrollbar-width: thin;
+  }
+
+  .gallery__track {
+    display: flex;
+    gap: var(--space-5);
+    width: max-content;
+    padding-inline: var(--gutter);
+  }
+
+  .gallery__item {
+    width: 16rem;
+    scroll-snap-align: start;
+  }
+
+  .gallery__img {
+    width: 100%;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+  }
+
+  .gallery__caption {
+    margin-top: var(--space-3);
+    font-size: var(--step--1);
+    color: var(--muted);
+  }
+
+  @media (min-width: 75rem) {
+    .gallery__track {
+      padding-inline: max(var(--gutter), calc((100vw - var(--wrap)) / 2 + var(--gutter)));
+    }
+  }
+</style>

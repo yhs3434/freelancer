@@ -32,6 +32,8 @@ const work = defineCollection({
             name: z.string(),
             nameKo: z.string(),
             icon: image(),
+            /** The brand's first store image, shown so the six brands can be compared side by side. */
+            banner: image(),
             href: z.url(),
           }),
         )

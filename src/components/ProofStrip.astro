@@ -3,7 +3,8 @@ import { site } from '../data/site';
 ---
 
 <section class="proof" aria-label="In numbers">
-  <ul class="wrap proof__list" role="list">
+  <div class="wrap">
+  <ul class="proof__list" role="list">
     {
       site.proof.map((item) => (
         <li class="proof__item">
@@ -15,6 +16,7 @@ import { site } from '../data/site';
       ))
     }
   </ul>
+  </div>
 </section>
 
 <style>
